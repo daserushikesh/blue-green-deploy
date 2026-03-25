@@ -29,7 +29,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                scp -i $SSH_KEY -o StrictHostKeyChecking=no -r app/* $USER@$TARGET_IP:/tmp/
+                scp -i $SSH_KEY -o StrictHostKeyChecking=no app/index.html $USER@$TARGET_IP:/tmp/
+                scp -i $SSH_KEY -o StrictHostKeyChecking=no app/health $USER@$TARGET_IP:/tmp/
                 ssh -i $SSH_KEY -o StrictHostKeyChecking=no $USER@$TARGET_IP "
                     sudo cp /tmp/index.html /var/www/html/index.html &&
                     sudo cp /tmp/health /var/www/html/health &&
